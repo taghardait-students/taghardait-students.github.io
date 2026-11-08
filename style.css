@@ -540,7 +540,7 @@ footer { text-align: center; color: var(--muted); font-size: 13px; padding: 40px
   position: absolute; inset: -56px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23FFF8F1' stroke-width='1.1' stroke-linejoin='round'%3E%3Cpath d='M28 15 40 28 28 41 16 28z'/%3E%3Cpath d='M28 22 33.5 28 28 34 22.5 28z'/%3E%3Cpath d='M0 4 7 0 14 4 21 0 28 4 35 0 42 4 49 0 56 4'/%3E%3Cpath d='M0 52 7 56 14 52 21 56 28 52 35 56 42 52 49 56 56 52'/%3E%3C/g%3E%3Cg fill='%23FFF8F1'%3E%3Ccircle cx='4' cy='28' r='1.4'/%3E%3Ccircle cx='52' cy='28' r='1.4'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 56px 56px;
-  opacity: .12;
+  opacity: .045;
   -webkit-mask-image: radial-gradient(ellipse at 50% 35%, transparent 12%, #000 62%);
           mask-image: radial-gradient(ellipse at 50% 35%, transparent 12%, #000 62%);
 }
