@@ -136,7 +136,7 @@
         ${e.intro ? `<p class="ev-intro">${esc(e.intro)}</p>` : ""}
       </div>
       ${e.speakers && e.speakers.length ? `<section>
-        <h2 class="sec-title">المحاضرات</h2>
+        <h2 class="sec-title">${e.speakers.length > 1 ? "المحاضرات" : "المحاضرة"}</h2>
         <div class="speakers">${e.speakers.map((s, i) => `
           <article class="speaker">
             <span class="sp-num">${i + 1}</span>
