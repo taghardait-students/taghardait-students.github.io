@@ -38,8 +38,8 @@
       return new Intl.DateTimeFormat("ar-DZ", { day: "numeric", month: "long", year: "numeric" }).format(new Date(d + "T12:00:00"));
     } catch { return d; }
   };
-  const ph = (src, alt) =>
-    src ? `<div class="ph"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy"></div>` : `<div class="ph empty"></div>`;
+  const ph = (src, alt, pos) =>
+    src ? `<div class="ph"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy"${pos ? ` style="object-position:${esc(pos)}"` : ""}></div>` : `<div class="ph empty"></div>`;
   const sortedEvents = () => [...S.events].sort((a, b) => b.date.localeCompare(a.date));
 
   /* ---------- الصفحة الرئيسية ---------- */
@@ -98,7 +98,7 @@
 
     $("#events").innerHTML = sortedEvents()
       .map((e) => `<a class="event" href="event.html?id=${encodeURIComponent(e.id)}">
-          ${ph(e.cover || e.photos.find(Boolean), e.title)}
+          ${ph(e.cover || e.photos.find(Boolean), e.title, e.thumbPosition)}
           <div class="body">
             <span class="date">${fmtDate(e.date)}${e.category ? ` · ${esc(e.category)}` : ""}</span>
             <h3>${esc(e.title)}</h3>
