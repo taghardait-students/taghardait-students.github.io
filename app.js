@@ -206,8 +206,10 @@
         <h2 id="fbTitle">انشغال أو اقتراح</h2>
         <label for="fbMsg">رسالتك</label>
         <textarea id="fbMsg" rows="5" maxlength="1500" required placeholder="اكتب ما تريد إيصاله للمكتب..."></textarea>
-        <label for="fbName">الاسم أو رقم الهاتف <span>(اختياري، إذا أردت أن نردّ عليك)</span></label>
-        <input id="fbName" type="text" maxlength="120" autocomplete="name">
+        <label for="fbName">الاسم <span>(اختياري)</span></label>
+        <input id="fbName" type="text" maxlength="80" autocomplete="name">
+        <label for="fbContact">رقم الواتساب أو الإيميل <span>(اختياري، إذا أردت أن نردّ عليك)</span></label>
+        <input id="fbContact" type="text" maxlength="100" autocomplete="off" inputmode="email" dir="ltr" placeholder="0555 12 34 56  /  name@gmail.com">
         <input class="fb-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
         <p class="fb-err" aria-live="polite"></p>
         <div class="fb-actions">
@@ -223,7 +225,7 @@
       </form>`;
     document.body.appendChild(sheet);
 
-    const form = sheet.querySelector("form"), msg = sheet.querySelector("#fbMsg"), name = sheet.querySelector("#fbName");
+    const form = sheet.querySelector("form"), msg = sheet.querySelector("#fbMsg"), name = sheet.querySelector("#fbName"), contact = sheet.querySelector("#fbContact");
     const err = sheet.querySelector(".fb-err"), send = sheet.querySelector(".fb-send"), done = sheet.querySelector(".fb-done");
     const open = () => { sheet.classList.add("open"); document.body.style.overflow = "hidden"; setTimeout(() => msg.focus(), 250); };
     const close = () => {
@@ -242,9 +244,17 @@
       const text = msg.value.trim();
       if (text.length < 3) { err.textContent = "اكتب رسالتك أولًا."; msg.focus(); return; }
       if (sheet.querySelector(".fb-hp").value) return; // روبوت
+      const who = name.value.trim(), reach = contact.value.trim();
+      if (reach) {
+        const isMail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(reach);
+        const isPhone = (reach.replace(/\D/g, "").length >= 9) && /^[+\d\s().-]+$/.test(reach);
+        if (!isMail && !isPhone) { err.textContent = "اكتب رقم واتساب صحيحًا أو إيميلًا صحيحًا، أو اترك الخانة فارغة."; contact.focus(); return; }
+      }
       const body = new URLSearchParams();
       body.append(f.messageField, text);
-      if (f.nameField && name.value.trim()) body.append(f.nameField, name.value.trim());
+      // الاسم ووسيلة التواصل يُرسلان معًا في خانة الفورم الثانية
+      const meta = [who && `الاسم: ${who}`, reach && `للتواصل: ${reach}`].filter(Boolean).join(" | ");
+      if (f.nameField && meta) body.append(f.nameField, meta);
       if (f.pageField) body.append(f.pageField, document.title);
       send.disabled = true; send.textContent = "جارٍ الإرسال...";
       try {

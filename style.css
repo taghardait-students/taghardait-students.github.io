@@ -337,7 +337,9 @@ footer { text-align: center; color: var(--muted); font-size: 13px; padding: 40px
   width: 100%; font: inherit; font-size: 16px; color: var(--ink);
   background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px;
 }
-.fb-card textarea { resize: vertical; min-height: 120px; }
+.fb-card textarea { resize: vertical; min-height: 110px; }
+.fb-card #fbContact { text-align: left; }
+.fb-card #fbContact::placeholder { color: var(--muted); opacity: .7; font-size: 14px; }
 .fb-card textarea:focus, .fb-card input:focus { outline: none; border-color: var(--plum); }
 .fb-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .fb-err { color: var(--coral, #FF4058); font-size: 14px; min-height: 20px; margin-top: 6px; }
