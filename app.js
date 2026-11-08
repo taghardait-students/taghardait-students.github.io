@@ -179,5 +179,85 @@
     setTimeout(() => t.classList.remove("show"), 1800);
   }
 
+  /* ---------- زر الانشغالات والمقترحات (يُرسل إلى Google Form) ---------- */
+  function renderFeedback() {
+    const f = S.feedback;
+    if (!f || !f.formAction || !f.messageField) return;
+    const footer = document.querySelector("footer");
+    const MSG_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.9A8 8 0 1 1 21 12z"/><path d="M8.5 10.5h7M8.5 13.5h4.5"/></svg>`;
+
+    const band = document.createElement("div");
+    band.className = "wrap";
+    band.innerHTML = `<section class="fb-band">
+      <div class="fb-ico">${MSG_ICON}</div>
+      <div class="fb-text"><h2>عندك انشغال أو اقتراح؟</h2>
+      <p>اكتب لنا، تصل رسالتك مباشرة إلى المكتب. يمكنك إرسالها دون ذكر اسمك.</p></div>
+      <button type="button" class="fb-open">اكتب لنا</button></section>`;
+    footer.before(band);
+
+    const sheet = document.createElement("div");
+    sheet.className = "fb-sheet";
+    sheet.setAttribute("role", "dialog");
+    sheet.setAttribute("aria-modal", "true");
+    sheet.setAttribute("aria-labelledby", "fbTitle");
+    sheet.innerHTML = `
+      <form class="fb-card" novalidate>
+        <div class="fb-grip"></div>
+        <h2 id="fbTitle">انشغال أو اقتراح</h2>
+        <label for="fbMsg">رسالتك</label>
+        <textarea id="fbMsg" rows="5" maxlength="1500" required placeholder="اكتب ما تريد إيصاله للمكتب..."></textarea>
+        <label for="fbName">الاسم أو رقم الهاتف <span>(اختياري، إذا أردت أن نردّ عليك)</span></label>
+        <input id="fbName" type="text" maxlength="120" autocomplete="name">
+        <input class="fb-hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="fb-err" aria-live="polite"></p>
+        <div class="fb-actions">
+          <button type="submit" class="btn-main fb-send">إرسال</button>
+          <button type="button" class="fb-cancel">إلغاء</button>
+        </div>
+        <div class="fb-done" hidden>
+          <div class="fb-check">✓</div>
+          <h2>وصلتنا رسالتك</h2>
+          <p>شكرًا لك، نقرأ كل رسالة باهتمام.</p>
+          <button type="button" class="btn-main fb-close">حسنًا</button>
+        </div>
+      </form>`;
+    document.body.appendChild(sheet);
+
+    const form = sheet.querySelector("form"), msg = sheet.querySelector("#fbMsg"), name = sheet.querySelector("#fbName");
+    const err = sheet.querySelector(".fb-err"), send = sheet.querySelector(".fb-send"), done = sheet.querySelector(".fb-done");
+    const open = () => { sheet.classList.add("open"); document.body.style.overflow = "hidden"; setTimeout(() => msg.focus(), 250); };
+    const close = () => {
+      sheet.classList.remove("open"); document.body.style.overflow = "";
+      if (!done.hidden) { form.reset(); done.hidden = true; form.classList.remove("sent"); }
+    };
+    band.querySelector(".fb-open").addEventListener("click", open);
+    sheet.querySelector(".fb-cancel").addEventListener("click", close);
+    sheet.querySelector(".fb-close").addEventListener("click", close);
+    sheet.addEventListener("click", (ev) => ev.target === sheet && close());
+    document.addEventListener("keydown", (k) => k.key === "Escape" && sheet.classList.contains("open") && close());
+
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      err.textContent = "";
+      const text = msg.value.trim();
+      if (text.length < 3) { err.textContent = "اكتب رسالتك أولًا."; msg.focus(); return; }
+      if (sheet.querySelector(".fb-hp").value) return; // روبوت
+      const body = new URLSearchParams();
+      body.append(f.messageField, text);
+      if (f.nameField && name.value.trim()) body.append(f.nameField, name.value.trim());
+      if (f.pageField) body.append(f.pageField, document.title);
+      send.disabled = true; send.textContent = "جارٍ الإرسال...";
+      try {
+        await fetch(f.formAction, { method: "POST", mode: "no-cors", body });
+        done.hidden = false; form.classList.add("sent");
+      } catch {
+        err.textContent = "تعذّر الإرسال، تأكد من الاتصال بالإنترنت وأعد المحاولة.";
+      } finally {
+        send.disabled = false; send.textContent = "إرسال";
+      }
+    });
+  }
+
   document.body.dataset.page === "event" ? renderEvent() : renderHome();
+  renderFeedback();
 })();

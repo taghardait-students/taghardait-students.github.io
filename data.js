@@ -73,6 +73,14 @@ window.SITE = {
     maps: ""
   },
 
+  /* زر «عندك انشغال أو اقتراح؟» — يرسل إلى Google Form (إذا تركت formAction فارغًا لا يظهر الزر) */
+  feedback: {
+    formAction: "https://docs.google.com/forms/d/e/1FAIpQLSfCBM-HcHVQL9z2SVF5OzGJAa6ypLKdp4ffjrxbaia47uD8aA/formResponse",
+    messageField: "entry.1602284639", // خانة الرسالة
+    nameField: "entry.261990679",     // خانة الاسم أو الهاتف (اختيارية)
+    pageField: ""            // خانة الصفحة التي أُرسلت منها (اختيارية)
+  },
+
   /* البرامج والفعاليات (قائمة واحدة) — الأحدث تظهر أولاً تلقائياً.
      id: كلمة لاتينية قصيرة بدون مسافات (تُستعمل في الرابط)
      date: بالصيغة YYYY-MM-DD

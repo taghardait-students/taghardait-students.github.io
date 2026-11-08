@@ -299,6 +299,62 @@ section { padding: 36px 0 8px; }
 
 footer { text-align: center; color: var(--muted); font-size: 13px; padding: 40px 16px 32px; }
 
+/* ===== الانشغالات والمقترحات ===== */
+.fb-band {
+  margin-top: 28px; padding: 18px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line);
+  display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; align-items: center;
+}
+.fb-ico { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--g-sign); color: #fff; }
+.fb-ico svg { width: 26px; height: 26px; }
+.fb-text h2 { font-size: 19px; line-height: 1.4; }
+.fb-text p { color: var(--muted); font-size: 14px; line-height: 1.6; margin-top: 2px; }
+.fb-open {
+  grid-column: 1 / -1; margin-top: 8px; padding: 12px; border-radius: 12px; cursor: pointer;
+  font: inherit; font-weight: 700; font-size: 16px;
+  border: 1.5px solid var(--plum); color: var(--plum);
+  background: color-mix(in srgb, var(--plum) 6%, var(--surface));
+}
+@media (prefers-color-scheme: dark) { .fb-open { color: var(--oasis); border-color: var(--oasis); } }
+
+.fb-sheet {
+  position: fixed; inset: 0; z-index: 120; display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(20, 4, 22, .55); opacity: 0; pointer-events: none; transition: opacity .2s;
+}
+.fb-sheet.open { opacity: 1; pointer-events: auto; }
+.fb-card {
+  position: relative; width: 100%; max-width: 520px; max-height: 92vh; overflow: auto;
+  background: var(--surface); color: var(--ink);
+  border-radius: 22px 22px 0 0; padding: 10px 18px calc(18px + env(safe-area-inset-bottom));
+  transform: translateY(24px); transition: transform .25s;
+}
+.fb-sheet.open .fb-card { transform: none; }
+.fb-grip { width: 44px; height: 5px; border-radius: 9px; background: var(--line); margin: 0 auto 12px; }
+.fb-card h2 { font-size: 21px; margin-bottom: 10px; }
+.fb-card label { display: block; font-weight: 700; font-size: 15px; margin: 12px 0 6px; }
+.fb-card label span { font-weight: 400; color: var(--muted); font-size: 13px; }
+.fb-card textarea, .fb-card input {
+  width: 100%; font: inherit; font-size: 16px; color: var(--ink);
+  background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px;
+}
+.fb-card textarea { resize: vertical; min-height: 120px; }
+.fb-card textarea:focus, .fb-card input:focus { outline: none; border-color: var(--plum); }
+.fb-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.fb-err { color: var(--coral, #FF4058); font-size: 14px; min-height: 20px; margin-top: 6px; }
+.fb-actions { display: grid; gap: 8px; margin-top: 4px; }
+.fb-send { border: 0; cursor: pointer; font: inherit; font-weight: 700; font-size: 17px; width: 100%; }
+.fb-send:disabled { opacity: .7; cursor: wait; }
+.fb-cancel { background: none; border: 0; padding: 10px; font: inherit; color: var(--muted); cursor: pointer; }
+.fb-card.sent > :not(.fb-done):not(.fb-grip) { display: none; }
+.fb-done { text-align: center; padding: 10px 0 4px; }
+.fb-done p { color: var(--muted); margin: 4px 0 16px; }
+.fb-done .btn-main { border: 0; width: 100%; cursor: pointer; font: inherit; font-weight: 700; font-size: 17px; }
+.fb-check {
+  width: 64px; height: 64px; margin: 6px auto 10px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 32px; font-weight: 700;
+  background: var(--g-oasis); color: var(--night);
+}
+
 /* ===== صفحة الفعالية ===== */
 .topbar {
   position: sticky; top: 0; z-index: 10;
