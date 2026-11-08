@@ -277,6 +277,26 @@
       })
     );
 
+    // تحضير الأيقونات لترتسم خطًا بخط: نقيس طول كل خط، والأشكال المملوءة تُرسم حدودها ثم تمتلئ
+    document.querySelectorAll(".v-ico svg, .social svg, .contact-card svg, .join-band svg, .scope svg, .fb-ico svg").forEach((svg) => {
+      svg.classList.add("draw");
+      svg.querySelectorAll("path, circle, rect, line, polyline, polygon, ellipse").forEach((el) => {
+        const attr = (n) => el.getAttribute(n) ?? svg.getAttribute(n);
+        const fill = attr("fill"), stroke = attr("stroke");
+        const filled = fill && fill !== "none";
+        let stroked = stroke && stroke !== "none";
+        if (filled) {
+          el.classList.add("fl");
+          if (!stroked) { el.setAttribute("stroke", "currentColor"); el.setAttribute("stroke-width", "1.2"); stroked = true; }
+        }
+        if (stroked && el.getTotalLength) {
+          let len = 0;
+          try { len = el.getTotalLength(); } catch {}
+          if (len > 0) { el.style.setProperty("--len", (len + 1).toFixed(2)); el.classList.add("ln"); }
+        }
+      });
+    });
+
     let fired = false;
     // احتياط: إذا لم يعمل المراقب لأي سبب، نُظهر كل شيء حتى لا يبقى محتوى مخفيًا
     setTimeout(() => { if (!fired) document.querySelectorAll(".rv").forEach((el) => el.classList.add("in")); }, 3000);
