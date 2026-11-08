@@ -126,6 +126,7 @@
     $("#main").innerHTML = `
       <div class="ev-cover ph ${e.cover || photos[0] ? "" : "empty"}">${e.cover || photos[0] ? `<img src="${esc(e.cover || photos[0])}" alt="${esc(e.title)}">` : ""}</div>
       <div class="ev-head">
+        ${e.logo ? `<img class="ev-logo" src="${esc(e.logo)}" alt="شعار ${esc(e.title)}">` : ""}
         <h1>${esc(e.title)}</h1>
         <div class="ev-meta">
           <span class="chip">📅 ${fmtDate(e.date)}${e.hijri ? ` · ${esc(e.hijri)}` : ""}</span>
@@ -153,6 +154,8 @@
       </section>
       ${shown.length ? `<section><h2 class="sec-title">صور من الفعالية</h2>
         <div class="gallery">${shown.map((p) => (p ? `<div class="ph" data-src="${esc(p)}"><img src="${esc(p)}" alt="" loading="lazy"></div>` : `<div class="ph empty"></div>`)).join("")}</div></section>` : ""}
+      ${e.video ? `<section><h2 class="sec-title">${esc(e.videoTitle || "فيديو البرنامج")}</h2>
+        <div class="ev-video"><video src="${esc(e.video)}"${e.videoPoster ? ` poster="${esc(e.videoPoster)}"` : ""} controls playsinline preload="none"></video></div></section>` : ""}
       ${e.poster ? `<section><h2 class="sec-title">إعلان البرنامج</h2>
         <div class="poster" data-src="${esc(e.poster)}"><img src="${esc(e.poster)}" alt="إعلان ${esc(e.title)}" loading="lazy"></div></section>` : ""}
     `;

@@ -79,6 +79,53 @@ window.SITE = {
      category: نوع البرنامج (اختياري) مثل: تكوين، استقبال، اجتماعي، ديني، رياضي */
   events: [
     {
+      id: "specialties-day-01",
+      title: "يوم مع التخصصات (01)",
+      category: "توجيه",
+      date: "2026-06-19",
+      time: "من 07:30 إلى 12:30",
+      place: "",
+      logo: "images/events/specialties-day-01/logo.jpg",
+      cover: "images/events/specialties-day-01/1.jpg",
+      summary: "معرض للتخصصات الجامعية ومحاضرات توجيهية لحاملي البكالوريا الجدد: اكتشف، اسأل، قارن، ثم اختر بثقة.",
+      intro:
+        "«يوم مع التخصصات» برنامج توجيهي يرافق الناجحين الجدد في شهادة البكالوريا في اختيار تخصّصهم الجامعي، بمعلومات واقعية من طلبة وخرّيجين عاشوا التجربة، بعيدًا عن الإشاعات والانطباعات الخاطئة. شعاره: «التخصص الجامعي... بوابتك نحو المستقبل».",
+      speakers: [
+        {
+          name: "الأستاذ الدكتور ربيع بن حمو الواهج",
+          role: "المحاضرة الرئيسية",
+          topic: "الحياة الجامعية: أهميتها، تحدياتها، وعوامل النجاح فيها"
+        }
+      ],
+      report: [
+        "نظّم مكتب الطلبة الجامعيين المزابيين لقصر تغردايت بالعاصمة يوم الجمعة 19 جوان 2026 الطبعة الأولى من برنامج «يوم مع التخصصات»، لفائدة حاملي شهادة البكالوريا الجدد من مختلف قصور وادي مزاب، مع دعوة أولياء الأمور لمرافقة أبنائهم.",
+        "افتُتح البرنامج بمحاضرة رئيسية للأستاذ الدكتور ربيع بن حمو الواهج حول الحياة الجامعية: أهمية هذه المرحلة، وتحدياتها، وعوامل نجاح الطالب فيها، والمهارات التي ينبغي أن يكتسبها، كالتواصل وإدارة الوقت والعمل الجماعي والتفكير الإبداعي.",
+        "وفي معرض التخصصات، أطّر 28 عارضًا من الطلبة والخرّيجين أجنحة تعرّف بمختلف الشُّعب، منها: الأقسام التحضيرية، والعلوم والتكنولوجيا، والإعلام الآلي، والحقوق والعلوم السياسية، والعلوم الاقتصادية والتجارية وعلوم التسيير. وتنقّل الحاضرون بين الأجنحة يسألون ويقارنون ويستمعون إلى تجارب مباشرة.",
+        "كما قُدّمت للحاضرين أداة رقمية للتوجيه «Orientation Bac Algérie»، تجيب عن أسئلة حاملي البكالوريا حول التخصصات ورموزها ومعدلات القبول في الجامعات الجزائرية.",
+        "نشكر الأستاذ المحاضر، وكل العارضين، وأعضاء اللجنة التنظيمية، وكل من ساهم في إنجاح هذه الطبعة الأولى، على أمل اللقاء في الطبعات القادمة."
+      ],
+      photos: [
+        "images/events/specialties-day-01/1.jpg",
+        "images/events/specialties-day-01/2.jpg",
+        "images/events/specialties-day-01/3.jpg",
+        "images/events/specialties-day-01/4.jpg",
+        "images/events/specialties-day-01/5.jpg",
+        "images/events/specialties-day-01/6.jpg",
+        "images/events/specialties-day-01/7.jpg",
+        "images/events/specialties-day-01/8.jpg",
+        "images/events/specialties-day-01/9.jpg",
+        "images/events/specialties-day-01/10.jpg",
+        "images/events/specialties-day-01/11.jpg",
+        "images/events/specialties-day-01/12.jpg",
+        "images/events/specialties-day-01/13.jpg",
+        "images/events/specialties-day-01/14.jpg"
+      ],
+      video: "images/events/specialties-day-01/video.mp4",
+      videoPoster: "images/events/specialties-day-01/video-poster.jpg",
+      videoTitle: "فيديو الإعلان",
+      poster: "images/events/specialties-day-01/poster.jpg"
+    },
+    {
       id: "amlagan-eid-02",
       title: "أملاقان العيد (02)",
       category: "توعوي",

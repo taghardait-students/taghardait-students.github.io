@@ -352,6 +352,10 @@ footer { text-align: center; color: var(--muted); font-size: 13px; padding: 40px
 .sp-role { font-size: 13px; color: var(--muted); line-height: 1.6; }
 @media (prefers-color-scheme: dark) { .sp-name { color: var(--accent); } }
 
+.ev-video { max-width: 360px; margin: 8px auto 0; }
+.ev-video video { display: block; width: 100%; aspect-ratio: 9 / 16; background: var(--night, #2A0B2C); border-radius: 16px; box-shadow: 0 8px 24px rgba(42,11,44,.18); }
+.ev-logo { display: block; width: 96px; height: 96px; object-fit: contain; margin: 0 0 10px; border-radius: 18px; background: #fff; padding: 6px; box-shadow: 0 4px 14px rgba(42,11,44,.12); }
+
 .poster { cursor: zoom-in; max-width: 420px; margin: 0 auto; }
 .poster img { width: 100%; border-radius: 14px; box-shadow: 0 8px 24px rgba(42,11,44,.15); }
 
