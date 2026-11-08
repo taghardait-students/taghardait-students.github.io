@@ -124,7 +124,7 @@
     const photos = e.photos.filter(Boolean);
     const shown = photos.length ? photos : e.photos; // يعرض أماكن فارغة في النموذج
     $("#main").innerHTML = `
-      <div class="ev-cover ph ${e.cover || photos[0] ? "" : "empty"}">${e.cover || photos[0] ? `<img src="${esc(e.cover || photos[0])}" alt="${esc(e.title)}">` : ""}</div>
+      <div class="ev-cover ph ${e.cover || photos[0] ? "" : "empty"}">${e.cover || photos[0] ? `<img src="${esc(e.cover || photos[0])}" alt="${esc(e.title)}"${e.coverPosition ? ` style="object-position:${esc(e.coverPosition)}"` : ""}>` : ""}</div>
       <div class="ev-head">
         ${e.logo ? `<img class="ev-logo" src="${esc(e.logo)}" alt="شعار ${esc(e.title)}">` : ""}
         <h1>${esc(e.title)}</h1>
