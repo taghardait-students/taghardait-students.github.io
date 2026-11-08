@@ -258,6 +258,57 @@
     });
   }
 
+  /* ---------- الحركة: ظهور العناصر عند التمرير + عدّاد الأرقام ---------- */
+  function animate() {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce || !("IntersectionObserver" in window)) return;
+    document.documentElement.classList.add("anim");
+
+    // كل مجموعة تظهر عناصرها واحدًا بعد الآخر
+    const groups = [
+      ".contact-card", ".socials > *", ".events > *", ".sec-title", ".group-photo", ".about p", ".scope",
+      ".vm-card", ".goals li", ".values > *", ".join-band", ".fb-band",
+      ".ev-head", ".speakers > *", ".ev-report p", ".gallery > *", ".ev-video", ".poster"
+    ];
+    groups.forEach((sel) =>
+      document.querySelectorAll(sel).forEach((el, i) => {
+        el.classList.add("rv");
+        el.style.setProperty("--d", `${Math.min(i, 8) * 70}ms`);
+      })
+    );
+
+    let fired = false;
+    // احتياط: إذا لم يعمل المراقب لأي سبب، نُظهر كل شيء حتى لا يبقى محتوى مخفيًا
+    setTimeout(() => { if (!fired) document.querySelectorAll(".rv").forEach((el) => el.classList.add("in")); }, 3000);
+    const io = new IntersectionObserver((entries) => {
+      fired = true;
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+    document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+
+    // عدّاد الأرقام في الواجهة
+    document.querySelectorAll(".stat b").forEach((b, i) => {
+      const m = b.textContent.match(/^(\D*)(\d+)(.*)$/);
+      if (!m) return;
+      const [, pre, num, post] = m, target = +num, dur = 1100 + i * 150;
+      b.textContent = pre + "0" + post;
+      setTimeout(() => {
+        const t0 = performance.now();
+        const step = (t) => {
+          const p = Math.min(1, (t - t0) / dur), eased = 1 - Math.pow(1 - p, 3);
+          b.textContent = pre + Math.round(target * eased) + post;
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }, 450);
+    });
+  }
+
   document.body.dataset.page === "event" ? renderEvent() : renderHome();
   renderFeedback();
+  animate();
 })();

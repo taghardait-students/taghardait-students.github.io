@@ -441,3 +441,88 @@ footer { text-align: center; color: var(--muted); font-size: 13px; padding: 40px
   .event { grid-template-columns: 160px 1fr; }
   .gallery { grid-template-columns: 1fr 1fr 1fr; }
 }
+
+/* =========================================================
+   الحركة — تُفعَّل فقط لمن لم يطلب تقليل الحركة في هاتفه
+   ========================================================= */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ظهور العناصر عند التمرير */
+  .anim .rv { opacity: 0; transform: translateY(18px); transition: opacity .6s ease var(--d, 0ms), transform .6s cubic-bezier(.2,.8,.2,1) var(--d, 0ms); }
+  .anim .rv.in { opacity: 1; transform: none; }
+  .anim .values > .rv { transform: translateX(-24px) scale(.96); }
+  .anim .values > .rv.in { transform: none; }
+  .anim .gallery > .rv { transform: scale(.94); }
+  .anim .gallery > .rv.in { transform: none; }
+
+  /* الواجهة: الشعار يقفز ثم يطفو، والنصوص تصعد بالتتابع */
+  .hero .logo { animation: pop-in .7s cubic-bezier(.3,1.6,.5,1) both, float 5s ease-in-out 1s infinite; }
+  .hero .tagline { animation: rise .7s ease .25s both; }
+  .hero .stat { animation: rise .6s ease both; }
+  .hero .stat:nth-child(1) { animation-delay: .35s; }
+  .hero .stat:nth-child(2) { animation-delay: .47s; }
+  .hero .stat:nth-child(3) { animation-delay: .59s; }
+
+  /* زر واتساب: لمعة تمرّ عليه وأيقونة ترنّ */
+  .btn-main { position: relative; overflow: hidden; transition: transform .15s; }
+  .btn-main::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+    transform: skewX(-20deg); animation: shine 4.5s ease-in-out 1.5s infinite;
+  }
+  .btn-main svg { animation: ring 4.5s ease-in-out 1.5s infinite; transform-origin: 50% 60%; }
+  .btn-main:active, .btn-join:active, .fb-open:active { transform: scale(.97); }
+
+  /* أيقونات التواصل: تقفز عند الظهور وعند اللمس */
+  .social { transition: transform .2s, box-shadow .2s, border-color .2s; }
+  .social svg { transition: transform .3s cubic-bezier(.3,1.6,.5,1); }
+  .anim .social.rv.in svg { animation: icon-pop .6s cubic-bezier(.3,1.6,.5,1) calc(var(--d) + .25s) both; }
+  .social:hover { transform: translateY(-3px); border-color: var(--plum); box-shadow: 0 8px 18px rgba(137,41,139,.15); }
+  .social:hover svg, .social:active svg { transform: scale(1.18) rotate(-6deg); }
+
+  /* أيقونات القيم: تدور قليلًا عند الظهور ثم تتمايل بهدوء */
+  .anim .value.rv.in .v-ico { animation: icon-spin .7s cubic-bezier(.3,1.5,.5,1) calc(var(--d) + .2s) both, bob 3.6s ease-in-out calc(var(--d) + 1s) infinite; }
+  .value { transition: transform .25s; }
+  .value:hover { transform: translateY(-4px); }
+
+  /* أرقام مجالات العمل تقفز */
+  .anim .goals li.rv.in::before { animation: icon-pop .55s cubic-bezier(.3,1.6,.5,1) calc(var(--d) + .2s) both; }
+
+  /* الشريط الملوّن بجانب العناوين ينمو */
+  .anim .sec-title.rv.in::before { animation: grow-y .5s ease .15s both; }
+
+  /* سهم «اقرأ التقرير» يتحرك، والبطاقة ترتفع عند اللمس */
+  .event { transition: transform .2s, box-shadow .2s; }
+  .event:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(42,11,44,.14); }
+  .event:active { transform: scale(.98); }
+  .event .ph img { transition: transform .5s; }
+  .event:hover .ph img { transform: scale(1.06); }
+  .event .more { display: inline-block; animation: nudge 2.4s ease-in-out infinite; }
+
+  /* دبوس النطاق يقفز، وأيقونة الرسائل تهتز أحيانًا */
+  .about .scope svg { animation: drop 2.8s ease-in-out infinite; }
+  .fb-ico svg { animation: wiggle 5s ease-in-out 2s infinite; }
+  .fb-check { animation: pop-in .6s cubic-bezier(.3,1.6,.5,1) both; }
+  .fb-card.sent .fb-check { animation: pop-in .6s cubic-bezier(.3,1.6,.5,1) both; }
+
+  /* صفحة الفعالية */
+  .ev-cover img { animation: zoom-out 1.2s ease both; }
+  .ev-logo { animation: pop-in .7s cubic-bezier(.3,1.6,.5,1) .2s both; }
+  .anim .speaker.rv.in .sp-num { animation: icon-pop .55s cubic-bezier(.3,1.6,.5,1) calc(var(--d) + .2s) both; }
+  .gallery .ph img { transition: transform .4s; }
+  .gallery .ph:hover img { transform: scale(1.05); }
+}
+
+@keyframes pop-in { 0% { opacity: 0; transform: scale(.6); } 100% { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -6px; } }
+@keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+@keyframes ring { 0%, 70%, 100% { rotate: 0deg; } 74% { rotate: -14deg; } 78% { rotate: 12deg; } 82% { rotate: -8deg; } 86% { rotate: 4deg; } }
+@keyframes icon-pop { 0% { transform: scale(.3); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes icon-spin { 0% { transform: scale(.4) rotate(-90deg); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@keyframes bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -3px; } }
+@keyframes grow-y { from { transform: scaleY(0); } to { transform: none; } }
+@keyframes nudge { 0%, 60%, 100% { translate: 0 0; } 75% { translate: -4px 0; } }
+@keyframes drop { 0%, 60%, 100% { translate: 0 0; } 70% { translate: 0 -5px; } 80% { translate: 0 0; } 88% { translate: 0 -2px; } }
+@keyframes wiggle { 0%, 80%, 100% { rotate: 0deg; } 84% { rotate: -12deg; } 88% { rotate: 10deg; } 92% { rotate: -6deg; } 96% { rotate: 3deg; } }
+@keyframes zoom-out { from { transform: scale(1.08); } to { transform: none; } }
